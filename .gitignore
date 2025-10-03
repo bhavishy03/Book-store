@@ -1,0 +1,11 @@
+﻿# general
+node_modules
+.env
+.env.local
+
+# next.js
+.next
+out
+
+# nest
+dist
