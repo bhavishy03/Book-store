@@ -1,18 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { CategoryController } from './category.controller';
+import { Controller, Get, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { CategoryService } from './category.service';
 
-describe('CategoryController', () => {
-  let controller: CategoryController;
-
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [CategoryController],
-    }).compile();
-
-    controller = module.get<CategoryController>(CategoryController);
-  });
-
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-});
+@ApiTags('category')
+@Controller('categories')
+export class CategoryController {
+  constructor(private categories: CategoryService) {}
+  @Get(':navigationId')
+  byNavigation(@Param('navigationId') navigationId: string) {
+    return this.categories.listByNavigation(navigationId);
+  }
+}
